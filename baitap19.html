@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bài tập 19</title>
+<title>Bài tập 19 - Portfolio &amp; Đèn Kéo Quân 3D</title>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -25,13 +25,479 @@
 </header>
 
 <main class="container">
-  <h2 class="section-title">Bài tập 19</h2>
+  <h2 class="section-title">Bài tập 19: Portfolio cá nhân với hiệu ứng Đèn Kéo Quân 3D</h2>
+
   <div class="explain-block">
     <p>
-      ⚠️ Đây là trang giữ chỗ (placeholder) cho kết quả Bài tập 19 đã thực hiện ở phần trước của khóa học.
-      Vui lòng thay thế nội dung trong file <code>baitap19.html</code> này bằng source code thật của
-      Bài tập 19 mà bạn đã làm trước đó, để menu chính liên kết đúng đến kết quả thực tế.
+      Đây là kết quả Bài tập 19: một trang Portfolio cá nhân (Nguyễn Quốc Phong) kèm hiệu ứng
+      <strong>Đèn Kéo Quân (Đèn lồng xoay 3D)</strong> hiển thị 6 ảnh xoay quanh trục bằng CSS 3D Transform,
+      được deploy trực tiếp trên Vercel.
     </p>
+    <p style="margin-top:10px;">
+      🔗 <strong>Link demo trực tiếp:</strong>
+      <a href="https://my-portfolio-iota-olive-62.vercel.app/" target="_blank" rel="noopener">
+        https://my-portfolio-iota-olive-62.vercel.app/
+      </a>
+    </p>
+    <p style="margin-top:6px;">
+      Repo GitHub:
+      <a href="https://github.com/nguyenquoc67/my-portfolio" target="_blank" rel="noopener">
+        github.com/nguyenquoc67/my-portfolio
+      </a>
+    </p>
+  </div>
+
+  <div class="explain-block">
+    <iframe src="https://my-portfolio-iota-olive-62.vercel.app/" title="Portfolio Preview"
+      style="width:100%; height:600px; border:1px solid #ddd; border-radius:10px;"
+      loading="lazy"></iframe>
+    <p style="margin-top:10px; color:#7f8c8d; font-size:0.85rem;">
+      * Nếu khung xem trước trên không hiển thị (do trình duyệt chặn iframe), vui lòng bấm vào link demo phía trên để xem trực tiếp.
+    </p>
+  </div>
+
+  <div class="explain-block">
+    <h2>1. Source code: index.html (trang Portfolio chính)</h2>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Portfolio - Nguyễn Quốc Phong&lt;/title&gt;
+&lt;style&gt;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0d0d1a;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, #1a0533 0%, #0d0d2b 60%, #0a1628 100%);
+  text-align: center;
+  padding: 50px 20px 40px;
+  border-bottom: 2px solid rgba(255,215,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: &#x27;&#x27;;
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.08) 0%, transparent 70%);
+}
+.avatar-wrap {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  border: 4px solid #ffd700;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  box-shadow: 0 0 30px rgba(255,215,0,0.3);
+  position: relative; z-index: 1;
+}
+.avatar-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+header h1 {
+  font-size: 2rem; font-weight: 700;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 6px; position: relative; z-index: 1;
+}
+header p { color: #c9a0ff; font-size: 0.95rem; position: relative; z-index: 1; }
+.dark-btn {
+  margin-top: 18px;
+  padding: 8px 22px;
+  border: 1px solid #ffd700;
+  background: transparent;
+  color: #ffd700;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background .2s;
+  position: relative; z-index: 1;
+}
+.dark-btn:hover { background: rgba(255,215,0,0.1); }
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 20px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(10px);
+}
+nav a {
+  text-decoration: none;
+  color: #c9a0ff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  border-radius: 20px;
+  transition: background .2s, color .2s;
+}
+nav a:hover { background: rgba(255,215,0,0.12); color: #ffd700; }
+nav a.special {
+  background: linear-gradient(90deg,#ffd700,#ff8c00);
+  color: #000 !important;
+  font-weight: 700;
+}
+
+/* SECTIONS */
+section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+section h2 {
+  font-size: 1.4rem;
+  color: #ffd700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(255,215,0,0.2);
+  display: inline-block;
+}
+
+/* ABOUT */
+.about-content { display:flex; flex-direction:column; gap:14px; max-width:680px; }
+.about-content p { color:#ccc; font-size:1rem; }
+.thanks-box {
+  background: rgba(255,215,0,0.06);
+  border-left: 4px solid #ffd700;
+  border-radius: 0 12px 12px 0;
+  padding: 16px 20px;
+  margin-top: 4px;
+}
+.thanks-box .title { color:#ffd700; font-weight:700; margin-bottom:6px; }
+.thanks-box p { color:#ccc; }
+
+/* SKILLS */
+.skills-list { display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; }
+.skill-tag {
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.3);
+  color: #ffd700;
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* PROJECTS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 20px; margin-top: 10px;
+}
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 22px;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,215,0,0.4);
+  box-shadow: 0 8px 30px rgba(255,215,0,0.1);
+}
+.card-icon { font-size:2rem; margin-bottom:10px; }
+.card h3 { color:#fff; font-size:1rem; margin-bottom:6px; }
+.card p { color:#999; font-size:0.85rem; }
+
+/* BAITAP18 */
+#baitap18 img {
+  width:100%; max-width:860px;
+  border-radius:14px;
+  border:2px solid rgba(255,215,0,0.3);
+  margin-top:12px;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+  display:block;
+}
+
+/* CONTACT */
+#contact p { color:#ccc; margin-bottom:6px; }
+#contact a { color:#ffd700; text-decoration:none; }
+form {
+  display:flex; flex-direction:column; gap:12px;
+  max-width:560px; margin-top:20px;
+}
+input, textarea {
+  padding:12px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px;
+  color:#fff; font-size:0.95rem;
+}
+input:focus, textarea:focus { outline:none; border-color:#ffd700; }
+input::placeholder, textarea::placeholder { color:#666; }
+button[type=submit] {
+  padding:12px;
+  background:linear-gradient(90deg,#ffd700,#ff8c00);
+  border:none; border-radius:10px;
+  color:#000; font-weight:700;
+  font-size:1rem; cursor:pointer;
+}
+button[type=submit]:hover { opacity:.85; }
+
+/* FOOTER */
+footer {
+  text-align:center; padding:24px;
+  background:rgba(0,0,0,0.3);
+  color:#555; font-size:0.85rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+/* LIGHT MODE */
+body.light { background:#f4f4f4; color:#222; }
+body.light header { background:linear-gradient(135deg,#4a00a0,#0056b3); }
+body.light nav { background:rgba(0,0,0,0.06); }
+body.light nav a { color:#333; }
+body.light .card { background:white; border-color:rgba(0,0,0,0.08); }
+body.light input, body.light textarea { background:white; border-color:#ccc; color:#222; }
+body.light footer { background:#222; color:#aaa; }
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity .7s, transform .7s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;div class=&quot;avatar-wrap&quot;&gt;
+    &lt;img src=&quot;images/avatar.jpg&quot; alt=&quot;Nguyễn Quốc Phong&quot;&gt;
+  &lt;/div&gt;
+  &lt;h1&gt;Nguyễn Quốc Phong&lt;/h1&gt;
+  &lt;p&gt;Sinh viên Công nghệ thông tin · Nhà phát triển Web &amp; AI&lt;/p&gt;
+  &lt;button class=&quot;dark-btn&quot; onclick=&quot;document.body.classList.toggle(&#x27;light&#x27;)&quot;&gt;🌙 Chế độ sáng/tối&lt;/button&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+  &lt;a href=&quot;#about&quot;&gt;Giới thiệu&lt;/a&gt;
+  &lt;a href=&quot;#skills&quot;&gt;Kỹ năng&lt;/a&gt;
+  &lt;a href=&quot;#projects&quot;&gt;Projects&lt;/a&gt;
+  &lt;a href=&quot;#baitap18&quot;&gt;Bài tập 18&lt;/a&gt;
+  &lt;a href=&quot;denkeoquan.html&quot; class=&quot;special&quot;&gt;🏮 Đèn Kéo Quân&lt;/a&gt;
+  &lt;a href=&quot;#contact&quot;&gt;Liên hệ&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;section id=&quot;about&quot; class=&quot;reveal&quot;&gt;
+  &lt;h2&gt;👋 Giới thiệu&lt;/h2&gt;
+  &lt;div class=&quot;about-content&quot;&gt;
+    &lt;p&gt;Xin chào! Tôi là &lt;strong style=&quot;color:#ffd700&quot;&gt;Nguyễn Quốc Phong&lt;/strong&gt;, sinh viên ngành Công nghệ thông tin. Hiện tại tôi đang là &lt;strong style=&quot;color:#c9a0ff&quot;&gt;sinh viên năm 3&lt;/strong&gt; tại &lt;strong style=&quot;color:#c9a0ff&quot;&gt;Trường Đại Học Văn Hiến&lt;/strong&gt;.&lt;/p&gt;
+    &lt;p&gt;Tôi yêu thích lập trình Web, AI và phát triển ứng dụng. Luôn tìm kiếm cơ hội học hỏi và sáng tạo trong lĩnh vực công nghệ.&lt;/p&gt;
+    &lt;div class=&quot;thanks-box&quot;&gt;
+      &lt;div class=&quot;title&quot;&gt;🎓 Lời cảm ơn&lt;/div&gt;
+      &lt;p&gt;Để có được trang web này, tôi đã học và thực hành theo hướng dẫn của &lt;strong style=&quot;color:#ffd700&quot;&gt;Thầy Nguyễn Quang Tấn&lt;/strong&gt; trong môn &lt;em&gt;Lập Trình Web&lt;/em&gt;. Em xin chân thành cảm ơn Thầy! 🙏&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;skills&quot; class=&quot;reveal&quot;&gt;
+  &lt;h2&gt;🛠️ Kỹ năng&lt;/h2&gt;
+  &lt;div class=&quot;skills-list&quot;&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;HTML5&lt;/span&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;CSS3&lt;/span&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;JavaScript&lt;/span&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;Bootstrap&lt;/span&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;Java&lt;/span&gt;
+    &lt;span class=&quot;skill-tag&quot;&gt;C++&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;projects&quot; class=&quot;reveal&quot;&gt;
+  &lt;h2&gt;🚀 Projects&lt;/h2&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;🏢&lt;/div&gt;&lt;h3&gt;Website cung ứng nhân lực&lt;/h3&gt;&lt;p&gt;Kết nối lao động và doanh nghiệp.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;🤖&lt;/div&gt;&lt;h3&gt;AI Chatbot&lt;/h3&gt;&lt;p&gt;Trợ lý ảo thông minh hỗ trợ nhiều lĩnh vực.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;💼&lt;/div&gt;&lt;h3&gt;Portfolio Website&lt;/h3&gt;&lt;p&gt;Website giới thiệu bản thân.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;🎮&lt;/div&gt;&lt;h3&gt;Game 3D C++&lt;/h3&gt;&lt;p&gt;Game nhập vai nâng cấp trang bị.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;📲&lt;/div&gt;&lt;h3&gt;App thông báo chuyển khoản&lt;/h3&gt;&lt;p&gt;Thông báo giao dịch qua Bluetooth.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;card-icon&quot;&gt;🦾&lt;/div&gt;&lt;h3&gt;Robot Mini AI&lt;/h3&gt;&lt;p&gt;Robot điều khiển từ xa nhận diện giọng nói.&lt;/p&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;baitap18&quot; class=&quot;reveal&quot;&gt;
+  &lt;h2&gt;📋 Kết quả Bài tập 18&lt;/h2&gt;
+  &lt;p style=&quot;color:#999;margin-bottom:8px&quot;&gt;Hình ảnh kết quả bài tập trắc nghiệm.&lt;/p&gt;
+  &lt;img src=&quot;images/baitap18.png&quot; alt=&quot;Bài tập 18&quot;
+       onerror=&quot;this.src=&#x27;images/baitap18.jpg&#x27;&quot;&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;contact&quot; class=&quot;reveal&quot;&gt;
+  &lt;h2&gt;📬 Liên hệ&lt;/h2&gt;
+  &lt;p&gt;📧 Email: &lt;a href=&quot;mailto:phongnguyen62449@gmail.com&quot;&gt;phongnguyen62449@gmail.com&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;📞 Số điện thoại: &lt;a href=&quot;tel:0378104680&quot;&gt;0378104680&lt;/a&gt;&lt;/p&gt;
+  &lt;form onsubmit=&quot;return false&quot;&gt;
+    &lt;input type=&quot;text&quot; placeholder=&quot;Họ và tên&quot;&gt;
+    &lt;input type=&quot;email&quot; placeholder=&quot;Email của bạn&quot;&gt;
+    &lt;textarea rows=&quot;5&quot; placeholder=&quot;Nội dung tin nhắn...&quot;&gt;&lt;/textarea&gt;
+    &lt;button type=&quot;submit&quot;&gt;Gửi liên hệ ✉️&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;© 2026 Nguyễn Quốc Phong · Sinh viên CNTT · Trường Đại Học Văn Hiến&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;script&gt;
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if(e.isIntersecting) e.target.classList.add(&#x27;visible&#x27;); });
+}, { threshold: 0.1 });
+document.querySelectorAll(&#x27;.reveal&#x27;).forEach(function(el) { obs.observe(el); });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+  </div>
+
+  <div class="explain-block">
+    <h2>2. Source code: denkeoquan.html (trang Đèn Kéo Quân 3D)</h2>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Đèn Kéo Quân - Nguyễn Quốc Phong&lt;/title&gt;
+&lt;style&gt;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(ellipse at center, #1a0533 0%, #0a0015 70%);
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px 60px;
+}
+
+/* HEADER */
+.header { text-align:center; margin-bottom:10px; }
+.avatar-circle {
+  width:110px; height:110px;
+  border-radius:50%;
+  border:3px solid #ffd700;
+  overflow:hidden;
+  margin:0 auto 12px;
+  box-shadow:0 0 20px rgba(255,215,0,0.3);
+}
+.avatar-circle img { width:100%; height:100%; object-fit:cover; }
+h1 {
+  font-size:1.7rem; font-weight:700;
+  background:linear-gradient(90deg,#ffd700,#ff8c00);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.header p { color:#c9a0ff; font-size:0.85rem; margin-top:4px; }
+
+.back-link {
+  display:inline-block; margin:10px 0 24px;
+  color:#ffd700; text-decoration:none;
+  border:1px solid #ffd700; padding:5px 16px;
+  border-radius:20px; transition:background .2s;
+}
+.back-link:hover { background:rgba(255,215,0,.12); }
+
+/* ĐÈN */
+.lamp-title {
+  color:#ffd700; font-size:1.15rem;
+  margin-bottom:14px; text-align:center; letter-spacing:1px;
+}
+.scene {
+  width:360px; height:360px;
+  perspective:1000px;
+  margin:0 auto;
+}
+.carousel {
+  width:100%; height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  animation:spin 12s linear infinite;
+}
+.carousel:hover { animation-play-state:paused; }
+.face {
+  position:absolute;
+  width:160px; height:215px;
+  left:100px; top:72px;
+  border:3px solid #ffd700;
+  border-radius:12px;
+  overflow:hidden;
+  background:#1a0533;
+  box-shadow:0 0 20px rgba(255,215,0,0.3);
+}
+.face img { width:100%; height:100%; object-fit:cover; display:block; }
+.face:nth-child(1){transform:rotateY(0deg)   translateZ(250px);}
+.face:nth-child(2){transform:rotateY(60deg)  translateZ(250px);}
+.face:nth-child(3){transform:rotateY(120deg) translateZ(250px);}
+.face:nth-child(4){transform:rotateY(180deg) translateZ(250px);}
+.face:nth-child(5){transform:rotateY(240deg) translateZ(250px);}
+.face:nth-child(6){transform:rotateY(300deg) translateZ(250px);}
+@keyframes spin { from{transform:rotateY(0deg);} to{transform:rotateY(360deg);} }
+
+.glow {
+  width:360px; height:20px; margin:-8px auto 0;
+  background:radial-gradient(ellipse,rgba(255,215,0,0.2) 0%,transparent 70%);
+  filter:blur(6px);
+}
+.hover-hint { text-align:center; color:#777; font-size:12px; margin-top:10px; margin-bottom:36px; }
+
+/* QUIZ */
+.quiz-section {
+  width:100%; max-width:700px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,215,0,0.2);
+  border-radius:16px; padding:24px; text-align:center;
+}
+.quiz-section h2 { color:#ffd700; font-size:1.1rem; margin-bottom:16px; }
+.quiz-section img {
+  width:100%; max-width:600px;
+  border-radius:12px;
+  border:2px solid rgba(255,215,0,0.4);
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;header&quot;&gt;
+  &lt;div class=&quot;avatar-circle&quot;&gt;
+    &lt;img src=&quot;images/avatar.jpg&quot; alt=&quot;Nguyễn Quốc Phong&quot;&gt;
+  &lt;/div&gt;
+  &lt;h1&gt;Nguyễn Quốc Phong&lt;/h1&gt;
+  &lt;p&gt;Sinh viên Công nghệ thông tin · Web &amp; AI Developer&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;a href=&quot;index.html&quot; class=&quot;back-link&quot;&gt;← Về Portfolio&lt;/a&gt;
+
+&lt;p class=&quot;lamp-title&quot;&gt;🏮 Đèn Kéo Quân 3D&lt;/p&gt;
+&lt;div class=&quot;scene&quot;&gt;
+  &lt;div class=&quot;carousel&quot;&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h1.jpg&quot; alt=&quot;Ảnh 1&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h2.jpg&quot; alt=&quot;Ảnh 2&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h3.jpg&quot; alt=&quot;Ảnh 3&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h4.jpg&quot; alt=&quot;Ảnh 4&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h5.jpg&quot; alt=&quot;Ảnh 5&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;face&quot;&gt;&lt;img src=&quot;images/h6.jpg&quot; alt=&quot;Ảnh 6&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;glow&quot;&gt;&lt;/div&gt;
+&lt;p class=&quot;hover-hint&quot;&gt;Rê chuột vào đèn để dừng · Di ra để quay tiếp&lt;/p&gt;
+
+&lt;div class=&quot;quiz-section&quot;&gt;
+  &lt;h2&gt;📋 Kết quả Bài tập 18 (Trắc nghiệm)&lt;/h2&gt;
+  &lt;img src=&quot;images/baitap18.png&quot; alt=&quot;Kết quả bài tập 18&quot;
+       onerror=&quot;this.src=&#x27;images/baitap18.jpg&#x27;&quot;&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
   </div>
 </main>
 
