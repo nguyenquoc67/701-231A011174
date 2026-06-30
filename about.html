@@ -25,58 +25,248 @@
 </header>
 
 <main class="container">
-  <h2 class="section-title">Phần Lý thuyết - Giải thích &amp; Trả lời</h2>
+  <h2 class="section-title">Phần 1: Lý thuyết (40 điểm)</h2>
 
+  <!-- ===================== CÂU 1 ===================== -->
   <div class="explain-block">
-    <h2>Câu 1: Bài tập danh sách sản phẩm &amp; tìm kiếm</h2>
-    <p>
-      Trang được dựng bằng HTML thuần với một khung lưới (CSS Grid - <code>repeat(auto-fit, minmax(220px, 1fr))</code>)
-      để tự co giãn số cột theo độ rộng màn hình mà không cần media query phức tạp. Dữ liệu sản phẩm
-      được khai báo cố định trong một mảng JavaScript (không lấy từ nguồn ngoài), nên không có rủi ro
-      dữ liệu độc hại lẫn vào danh sách gốc.
-    </p>
-    <p>
-      Khi xử lý input tìm kiếm, chuỗi nhập vào được <code>.trim()</code> và <code>.toLowerCase()</code> trước khi so khớp,
-      và toàn bộ nội dung hiển thị ra DOM đều dùng <code>textContent</code> thay vì <code>innerHTML</code> — đây là điểm
-      mấu chốt để chống injection (XSS): trình duyệt sẽ không bao giờ diễn giải chuỗi văn bản là thẻ
-      HTML hay đoạn script thực thi được. Việc tìm kiếm dùng <code>Array.filter()</code> kết hợp <code>includes()</code>,
-      phù hợp với dữ liệu nhỏ; với dữ liệu lớn hơn nên thêm kỹ thuật debounce để tối ưu hiệu năng.
-    </p>
+    <h2>Câu 1 (10 điểm): Sự khác biệt giữa <code>position: absolute</code> và <code>position: relative</code></h2>
+    <p>Trong CSS, thuộc tính <code>position</code> dùng để xác định cách phần tử được định vị trên trang web.</p>
+
+    <h3 style="margin-top:14px;">1. <code>position: relative</code></h3>
+    <ul>
+      <li>Phần tử vẫn giữ vị trí ban đầu trong luồng (flow) của trang.</li>
+      <li>Có thể di chuyển bằng các thuộc tính <code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code>.</li>
+      <li>Khoảng trống ban đầu của phần tử vẫn được giữ lại.</li>
+    </ul>
+    <p><strong>Ví dụ:</strong></p>
+    <pre><code>&lt;div class="box"&gt;Box&lt;/div&gt;
+
+.box {
+  position: relative;
+  top: 20px;
+  left: 30px;
+  background: lightblue;
+}</code></pre>
+    <p><strong>Kết quả:</strong> Box dịch xuống 20px và sang phải 30px. Vị trí cũ của nó vẫn được giữ trong bố cục.</p>
+
+    <h3 style="margin-top:14px;">2. <code>position: absolute</code></h3>
+    <ul>
+      <li>Phần tử bị loại khỏi luồng của trang.</li>
+      <li>Được định vị theo phần tử cha gần nhất có <code>position</code> khác <code>static</code>.</li>
+      <li>Nếu không có cha phù hợp thì sẽ căn theo cửa sổ trình duyệt.</li>
+    </ul>
+    <p><strong>Ví dụ:</strong></p>
+    <pre><code>&lt;div class="container"&gt;
+  &lt;div class="box"&gt;Box&lt;/div&gt;
+&lt;/div&gt;
+
+.container {
+  position: relative;
+  width: 300px;
+  height: 200px;
+}
+
+.box {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}</code></pre>
+    <p><strong>Kết quả:</strong> Box nằm ở góc trên bên phải của <code>.container</code>. Không chiếm không gian trong bố cục.</p>
+
+    <h3 style="margin-top:14px;">Ứng dụng thực tế</h3>
+    <p><strong>position: relative</strong></p>
+    <ul>
+      <li>Làm khung chứa cho phần tử absolute.</li>
+      <li>Điều chỉnh vị trí nhỏ của icon.</li>
+      <li>Thiết kế layout responsive.</li>
+    </ul>
+    <p><strong>position: absolute</strong></p>
+    <ul>
+      <li>Popup.</li>
+      <li>Tooltip.</li>
+      <li>Menu thả xuống.</li>
+      <li>Nút nổi.</li>
+      <li>Badge thông báo.</li>
+    </ul>
+
+    <h3 style="margin-top:14px;">Ảnh hưởng đến Responsive</h3>
+    <ul>
+      <li><code>relative</code> giúp giao diện linh hoạt hơn trên nhiều kích thước màn hình.</li>
+      <li><code>absolute</code> nếu dùng quá nhiều với giá trị pixel cố định sẽ dễ bị lệch trên điện thoại hoặc tablet.</li>
+      <li>Khi thiết kế responsive nên kết hợp Flexbox hoặc Grid thay vì lạm dụng Absolute.</li>
+    </ul>
+
+    <h3 style="margin-top:14px;">Ảnh hưởng khi Deploy Website</h3>
+    <p>Khi deploy lên Hosting hoặc GitHub Pages:</p>
+    <ul>
+      <li>CSS hoạt động giống nhau.</li>
+      <li>Nếu layout sử dụng absolute không hợp lý thì trên các thiết bị khác nhau giao diện sẽ dễ vỡ.</li>
+      <li>Cần kiểm tra Responsive bằng Chrome DevTools trước khi deploy.</li>
+    </ul>
   </div>
 
+  <!-- ===================== CÂU 2 ===================== -->
   <div class="explain-block">
-    <h2>Câu 2: Bài tập form đăng ký</h2>
-    <p>
-      Form dùng <code>e.preventDefault()</code> trong sự kiện <code>submit</code> để tự kiểm soát luồng xử lý thay vì
-      để trình duyệt tải lại trang. Email được kiểm tra bằng regex, mật khẩu yêu cầu tối thiểu 8 ký tự
-      kèm chữ hoa/thường/số bằng regex dạng lookahead. Nếu một trong các điều kiện không thỏa, thông
-      báo lỗi tương ứng sẽ hiển thị và dữ liệu không được lưu.
-    </p>
-    <p>
-      Về bảo mật dữ liệu cục bộ: LocalStorage lưu dữ liệu dạng văn bản thuần, không mã hoá, và bất kỳ
-      script nào chạy cùng origin (kể cả script độc hại nếu trang bị XSS) đều có thể đọc được. Vì vậy,
-      trong bài demo mình chỉ lưu họ tên/email minh hoạ, còn mật khẩu thực tế không bao giờ nên lưu ở
-      phía client — phải gửi qua HTTPS để server hash (bcrypt/argon2) trước khi lưu vào cơ sở dữ liệu.
-    </p>
+    <h2>Câu 2 (10 điểm): Quy trình đăng ký Domain và Hosting</h2>
+    <p>Một website JavaScript thông thường cần các bước:</p>
+
+    <p><strong>Bước 1: Đăng ký tên miền (Domain)</strong></p>
+    <p>Ví dụ: <code>abc.com</code>, <code>mywebsite.vn</code></p>
+
+    <p><strong>Bước 2: Thuê Hosting</strong></p>
+    <p>Hosting là nơi lưu: HTML, CSS, JavaScript, Hình ảnh.</p>
+
+    <p><strong>Bước 3: Upload Source Code</strong></p>
+    <p>Có thể upload bằng: File Manager, FTP, Git.</p>
+
+    <p><strong>Bước 4: Trỏ Domain về Hosting</strong></p>
+    <p>Thông qua DNS.</p>
+
+    <h3 style="margin-top:14px;">Vai trò của DNS</h3>
+    <p>DNS (Domain Name System) giúp chuyển <code>www.example.com</code> thành <code>192.xxx.xxx.xxx</code> để trình duyệt tìm đúng máy chủ chứa website.</p>
+    <p>Nếu cấu hình DNS sai:</p>
+    <ul>
+      <li>Không truy cập được website.</li>
+      <li>Website báo lỗi.</li>
+      <li>Có thể truy cập nhầm máy chủ.</li>
+    </ul>
+
+    <h3 style="margin-top:14px;">Hai công cụ Deploy miễn phí</h3>
+    <p><strong>1. GitHub Pages</strong> — Ưu điểm:</p>
+    <ul>
+      <li>Miễn phí.</li>
+      <li>Dễ sử dụng.</li>
+      <li>Tự động deploy từ GitHub.</li>
+      <li>Phù hợp website tĩnh.</li>
+    </ul>
+    <p><strong>2. Netlify</strong> — Ưu điểm:</p>
+    <ul>
+      <li>Deploy tự động.</li>
+      <li>Hỗ trợ HTTPS.</li>
+      <li>Custom Domain.</li>
+      <li>Tốc độ nhanh.</li>
+    </ul>
+    <p>Ngoài ra còn có: Vercel, Firebase Hosting.</p>
+
+    <h3 style="margin-top:14px;">Rủi ro bảo mật</h3>
+    <p>Nếu cấu hình sai có thể xảy ra:</p>
+    <ul>
+      <li>Không bật HTTPS.</li>
+      <li>Lộ source code.</li>
+      <li>Sai quyền truy cập thư mục.</li>
+      <li>DNS bị giả mạo (DNS Spoofing).</li>
+      <li>Domain bị chiếm quyền nếu không bật bảo vệ.</li>
+    </ul>
+    <p>Do đó cần:</p>
+    <ul>
+      <li>Sử dụng HTTPS.</li>
+      <li>Thiết lập quyền truy cập đúng.</li>
+      <li>Cấu hình DNS chính xác.</li>
+      <li>Bật xác thực hai lớp cho tài khoản quản lý.</li>
+    </ul>
   </div>
 
+  <!-- ===================== CÂU 3 ===================== -->
   <div class="explain-block">
-    <h2>Câu 3: Bài tập đồng hồ đếm ngược</h2>
-    <p>
-      Đồng hồ dùng <code>setInterval</code> chạy mỗi giây để giảm dần biến đếm và cập nhật giao diện dạng MM:SS.
-      Để tránh memory leak, mình luôn đảm bảo chỉ có một interval đang chạy tại một thời điểm: gọi
-      <code>clearInterval()</code> trước khi tạo interval mới, và chủ động dừng khi đếm về 0 hoặc khi người dùng
-      rời trang (sự kiện <code>beforeunload</code>). Khi còn dưới 1 phút, một class CSS được thêm vào để kích hoạt
-      animation cảnh báo (đổi màu + hiệu ứng pulse).
-    </p>
-    <p>
-      Về tích hợp Domain/Hosting khi deploy: vì <code>setInterval</code> chạy phía client nên dễ bị lệch nếu tab
-      chạy nền (bị trình duyệt throttle) hoặc đồng hồ máy người dùng sai. Giải pháp khi triển khai thực
-      tế là lấy mốc thời gian hiện tại từ server (qua một API nhỏ hoặc header <code>Date</code> của response HTTP),
-      tính thời điểm kết thúc tuyệt đối <code>endTime</code>, rồi mỗi lần tick chỉ tính
-      <code>remaining = endTime - Date.now()</code> thay vì cộng dồn từng giây, giúp đồng hồ luôn chính xác dù
-      có bị gián đoạn.
-    </p>
+    <h2>Câu 3 (10 điểm): So sánh <code>var</code>, <code>let</code> và <code>const</code></h2>
+
+    <table class="info-table" style="margin-top:10px;">
+      <thead>
+        <tr>
+          <th style="width:auto;">Tiêu chí</th>
+          <th style="width:auto;">var</th>
+          <th style="width:auto;">let</th>
+          <th style="width:auto;">const</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Scope</td><td>Function</td><td>Block</td><td>Block</td></tr>
+        <tr><td>Hoisting</td><td>Có</td><td>Có nhưng chưa khởi tạo</td><td>Có nhưng chưa khởi tạo</td></tr>
+        <tr><td>Khai báo lại</td><td>Có</td><td>Không</td><td>Không</td></tr>
+        <tr><td>Gán lại</td><td>Có</td><td>Có</td><td>Không</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">Ví dụ lỗi thường gặp</h3>
+    <pre><code>console.log(a);
+
+let a = 10;</code></pre>
+    <p><strong>Kết quả:</strong> <code>ReferenceError</code> — Do <code>let</code> được hoisting nhưng chưa được khởi tạo.</p>
+
+    <p><strong>Ví dụ khác:</strong></p>
+    <pre><code>const PI = 3.14;
+
+PI = 3;</code></pre>
+    <p><strong>Kết quả:</strong> <code>TypeError</code> — Vì <code>const</code> không cho phép gán lại.</p>
+
+    <p><strong>Ví dụ về var:</strong></p>
+    <pre><code>if (true) {
+  var x = 5;
+}
+
+console.log(x);</code></pre>
+    <p><strong>Kết quả:</strong> <code>5</code> — Do <code>var</code> không có Block Scope.</p>
+
+    <h3 style="margin-top:14px;">Debug bằng Chrome DevTools</h3>
+    <p>Các bước:</p>
+    <ul>
+      <li>Mở Chrome.</li>
+      <li>Nhấn F12.</li>
+      <li>Chọn tab Sources.</li>
+      <li>Đặt Breakpoint.</li>
+      <li>Chạy chương trình.</li>
+      <li>Quan sát giá trị biến trong Scope.</li>
+      <li>Kiểm tra lỗi ở tab Console.</li>
+    </ul>
+    <p>DevTools giúp xác định: ReferenceError, TypeError, Giá trị biến, Stack Trace, Quá trình thực thi chương trình.</p>
+  </div>
+
+  <!-- ===================== CÂU 4 ===================== -->
+  <div class="explain-block">
+    <h2>Câu 4 (10 điểm): Khái niệm Event Delegation</h2>
+    <p>Event Delegation là kỹ thuật gắn một Event Listener lên phần tử cha để xử lý sự kiện của các phần tử con thông qua cơ chế Event Bubbling.</p>
+    <p>Thay vì gắn nhiều Listener cho từng phần tử, chỉ cần một Listener ở phần tử cha.</p>
+
+    <h3 style="margin-top:14px;">Ví dụ</h3>
+    <pre><code>&lt;ul id="list"&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+
+document.getElementById("list").addEventListener("click", function (e) {
+  if (e.target.tagName === "LI") {
+    alert(e.target.innerText);
+  }
+});</code></pre>
+    <p>Khi click vào bất kỳ thẻ <code>&lt;li&gt;</code> nào đều hiển thị nội dung của nó.</p>
+
+    <h3 style="margin-top:14px;">Ứng dụng với danh sách động</h3>
+    <pre><code>let li = document.createElement("li");
+li.innerText = "React";
+document.getElementById("list").appendChild(li);</code></pre>
+    <p>Dù phần tử được thêm sau khi trang đã tải, Event Delegation vẫn xử lý được mà không cần gắn thêm Event Listener.</p>
+
+    <h3 style="margin-top:14px;">Lợi ích</h3>
+    <ul>
+      <li>Giảm số lượng Event Listener.</li>
+      <li>Tiết kiệm bộ nhớ.</li>
+      <li>Tăng hiệu suất website.</li>
+      <li>Dễ bảo trì mã nguồn.</li>
+      <li>Hoạt động tốt với các phần tử được tạo động bằng JavaScript.</li>
+      <li>Dễ kết hợp với HTML và CSS để xây dựng giao diện tương tác.</li>
+    </ul>
+  </div>
+
+  <!-- ===================== KẾT LUẬN ===================== -->
+  <div class="explain-block">
+    <h2>Kết luận</h2>
+    <ul>
+      <li><code>position: relative</code> và <code>absolute</code> giúp định vị phần tử, nhưng cần sử dụng hợp lý để đảm bảo giao diện responsive.</li>
+      <li>Domain, Hosting và DNS là ba thành phần quan trọng để đưa website lên Internet; GitHub Pages và Netlify là hai giải pháp deploy miễn phí hiệu quả.</li>
+      <li><code>let</code>, <code>const</code> và <code>var</code> khác nhau về phạm vi hoạt động (scope) và cơ chế hoisting; Chrome DevTools hỗ trợ phát hiện và sửa lỗi nhanh chóng.</li>
+      <li>Event Delegation giúp xử lý sự kiện hiệu quả, đặc biệt với các danh sách động, góp phần tối ưu hiệu suất và khả năng bảo trì của website.</li>
+    </ul>
   </div>
 </main>
 
