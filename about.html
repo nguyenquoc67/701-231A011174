@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trả lời Lý thuyết</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="brand">701 - 231A011174</div>
+    <ul>
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="baitap01.html">Bài tập 1</a></li>
+      <li><a href="baitap02.html">Bài tập 2</a></li>
+      <li><a href="baitap03.html">Bài tập 3</a></li>
+      <li><a href="about.html">Trả lời Lý thuyết</a></li>
+      <li><a href="baitap18.html">Bài tập 18</a></li>
+      <li><a href="baitap19.html">Bài tập 19</a></li>
+      <li><a href="contact.html">Điểm danh</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="section-title">Phần Lý thuyết - Giải thích &amp; Trả lời</h2>
+
+  <div class="explain-block">
+    <h2>Câu 1: Bài tập danh sách sản phẩm &amp; tìm kiếm</h2>
+    <p>
+      Trang được dựng bằng HTML thuần với một khung lưới (CSS Grid - <code>repeat(auto-fit, minmax(220px, 1fr))</code>)
+      để tự co giãn số cột theo độ rộng màn hình mà không cần media query phức tạp. Dữ liệu sản phẩm
+      được khai báo cố định trong một mảng JavaScript (không lấy từ nguồn ngoài), nên không có rủi ro
+      dữ liệu độc hại lẫn vào danh sách gốc.
+    </p>
+    <p>
+      Khi xử lý input tìm kiếm, chuỗi nhập vào được <code>.trim()</code> và <code>.toLowerCase()</code> trước khi so khớp,
+      và toàn bộ nội dung hiển thị ra DOM đều dùng <code>textContent</code> thay vì <code>innerHTML</code> — đây là điểm
+      mấu chốt để chống injection (XSS): trình duyệt sẽ không bao giờ diễn giải chuỗi văn bản là thẻ
+      HTML hay đoạn script thực thi được. Việc tìm kiếm dùng <code>Array.filter()</code> kết hợp <code>includes()</code>,
+      phù hợp với dữ liệu nhỏ; với dữ liệu lớn hơn nên thêm kỹ thuật debounce để tối ưu hiệu năng.
+    </p>
+  </div>
+
+  <div class="explain-block">
+    <h2>Câu 2: Bài tập form đăng ký</h2>
+    <p>
+      Form dùng <code>e.preventDefault()</code> trong sự kiện <code>submit</code> để tự kiểm soát luồng xử lý thay vì
+      để trình duyệt tải lại trang. Email được kiểm tra bằng regex, mật khẩu yêu cầu tối thiểu 8 ký tự
+      kèm chữ hoa/thường/số bằng regex dạng lookahead. Nếu một trong các điều kiện không thỏa, thông
+      báo lỗi tương ứng sẽ hiển thị và dữ liệu không được lưu.
+    </p>
+    <p>
+      Về bảo mật dữ liệu cục bộ: LocalStorage lưu dữ liệu dạng văn bản thuần, không mã hoá, và bất kỳ
+      script nào chạy cùng origin (kể cả script độc hại nếu trang bị XSS) đều có thể đọc được. Vì vậy,
+      trong bài demo mình chỉ lưu họ tên/email minh hoạ, còn mật khẩu thực tế không bao giờ nên lưu ở
+      phía client — phải gửi qua HTTPS để server hash (bcrypt/argon2) trước khi lưu vào cơ sở dữ liệu.
+    </p>
+  </div>
+
+  <div class="explain-block">
+    <h2>Câu 3: Bài tập đồng hồ đếm ngược</h2>
+    <p>
+      Đồng hồ dùng <code>setInterval</code> chạy mỗi giây để giảm dần biến đếm và cập nhật giao diện dạng MM:SS.
+      Để tránh memory leak, mình luôn đảm bảo chỉ có một interval đang chạy tại một thời điểm: gọi
+      <code>clearInterval()</code> trước khi tạo interval mới, và chủ động dừng khi đếm về 0 hoặc khi người dùng
+      rời trang (sự kiện <code>beforeunload</code>). Khi còn dưới 1 phút, một class CSS được thêm vào để kích hoạt
+      animation cảnh báo (đổi màu + hiệu ứng pulse).
+    </p>
+    <p>
+      Về tích hợp Domain/Hosting khi deploy: vì <code>setInterval</code> chạy phía client nên dễ bị lệch nếu tab
+      chạy nền (bị trình duyệt throttle) hoặc đồng hồ máy người dùng sai. Giải pháp khi triển khai thực
+      tế là lấy mốc thời gian hiện tại từ server (qua một API nhỏ hoặc header <code>Date</code> của response HTTP),
+      tính thời điểm kết thúc tuyệt đối <code>endTime</code>, rồi mỗi lần tick chỉ tính
+      <code>remaining = endTime - Date.now()</code> thay vì cộng dồn từng giây, giúp đồng hồ luôn chính xác dù
+      có bị gián đoạn.
+    </p>
+  </div>
+</main>
+
+<footer>
+  © 2026 Nguyễn Quốc Phong - 231A011174 - Trường Đại Học Văn Hiến
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

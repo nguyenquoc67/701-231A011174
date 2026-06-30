@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bài tập 3 - Đồng hồ đếm ngược</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="brand">701 - 231A011174</div>
+    <ul>
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="baitap01.html">Bài tập 1</a></li>
+      <li><a href="baitap02.html">Bài tập 2</a></li>
+      <li><a href="baitap03.html">Bài tập 3</a></li>
+      <li><a href="about.html">Trả lời Lý thuyết</a></li>
+      <li><a href="baitap18.html">Bài tập 18</a></li>
+      <li><a href="baitap19.html">Bài tập 19</a></li>
+      <li><a href="contact.html">Điểm danh</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="section-title">Bài tập 3: Đồng hồ đếm ngược (10 phút)</h2>
+
+  <div class="timer-wrapper">
+    <div class="timer-display" id="timerDisplay">10:00</div>
+    <div class="timer-controls">
+      <button id="startBtn">Bắt đầu</button>
+      <button id="pauseBtn">Tạm dừng</button>
+      <button id="resetBtn" class="reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="explain-block" style="margin-top:10px;">
+    <h2>Giải thích logic tư duy</h2>
+    <ul>
+      <li>Mình dùng một biến duy nhất <code>countdownInterval</code> để lưu ID của <code>setInterval</code>. Mỗi lần bấm "Bắt đầu", nếu interval đang chạy thì không tạo thêm cái mới (tránh trường hợp bấm nhiều lần tạo ra nhiều interval chạy song song, khiến đồng hồ chạy nhanh gấp đôi/gấp ba và gây rò rỉ bộ nhớ - memory leak).</li>
+      <li>Khi đếm về 0, hàm <code>tickTimer()</code> chủ động gọi <code>clearInterval()</code> để dừng hẳn interval, không để nó tiếp tục chạy nền vô ích sau khi đã hoàn thành nhiệm vụ.</li>
+      <li>Hàm "Tạm dừng" và "Reset" cũng đều gọi <code>clearInterval()</code> trước khi gán lại biến, đảm bảo chỉ có tối đa một interval đang hoạt động tại một thời điểm.</li>
+      <li>Mình cũng lắng nghe sự kiện <code>beforeunload</code> để dọn dẹp interval khi người dùng rời trang, đảm bảo không có tiến trình đếm "ma" nào còn sót lại nếu trình duyệt vẫn giữ tham chiếu trang trong bộ nhớ (ví dụ bfcache).</li>
+      <li>Khi còn dưới 1 phút, class CSS <code>.warning</code> được thêm vào để đổi màu nền đỏ và chạy animation <code>pulse</code> nhấp nháy cảnh báo người dùng.</li>
+      <li><strong>Về tích hợp với Domain/Hosting khi deploy:</strong> đồng hồ hiện tại đếm hoàn toàn dựa trên đồng hồ của trình duyệt (client-side), điều này có thể bị sai lệch nếu: (1) tab bị trình duyệt "throttle" khi chạy ở chế độ nền (background tab), khiến <code>setInterval</code> không chạy đúng mỗi giây; (2) đồng hồ hệ thống của máy người dùng bị sai. Để đồng bộ chính xác khi deploy thật, giải pháp tốt hơn là: lấy thời điểm hiện tại từ server (gọi một API nhỏ trả về <code>Date.now()</code> phía server, hoặc đọc header <code>Date</code> của response HTTP), tính ra <code>endTime = serverNow + 10*60*1000</code>, sau đó mỗi lần tick chỉ cần tính <code>remaining = endTime - Date.now()</code> thay vì cộng dồn từng giây — cách này giúp đồng hồ luôn hiển thị đúng thời gian thực dù tab có bị throttle hay máy người dùng có lệch giờ, vì luôn lấy mốc tham chiếu tuyệt đối thay vì đếm lùi tích luỹ.</li>
+    </ul>
+  </div>
+</main>
+
+<div class="modal-overlay" id="timeUpModal">
+  <div class="modal-box">
+    <h2>⏰ Hết giờ!</h2>
+    <p>Thời gian đếm ngược 10 phút đã kết thúc.</p>
+    <button id="closeModalBtn">Đóng</button>
+  </div>
+</div>
+
+<footer>
+  © 2026 Nguyễn Quốc Phong - 231A011174 - Trường Đại Học Văn Hiến
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

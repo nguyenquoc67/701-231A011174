@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bài tập 2 - Form đăng ký</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="brand">701 - 231A011174</div>
+    <ul>
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="baitap01.html">Bài tập 1</a></li>
+      <li><a href="baitap02.html">Bài tập 2</a></li>
+      <li><a href="baitap03.html">Bài tập 3</a></li>
+      <li><a href="about.html">Trả lời Lý thuyết</a></li>
+      <li><a href="baitap18.html">Bài tập 18</a></li>
+      <li><a href="baitap19.html">Bài tập 19</a></li>
+      <li><a href="contact.html">Điểm danh</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="section-title">Bài tập 2: Form đăng ký người dùng</h2>
+
+  <div class="form-wrapper">
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <label for="regName">Họ và tên</label>
+        <input type="text" id="regName" name="regName" placeholder="Nhập họ tên" required />
+      </div>
+
+      <div class="form-group">
+        <label for="regEmail">Email</label>
+        <input type="email" id="regEmail" name="regEmail" placeholder="vidu@gmail.com" required />
+        <div class="error-text" id="emailError">Email không hợp lệ.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="regPassword">Mật khẩu</label>
+        <input type="password" id="regPassword" name="regPassword" placeholder="Ít nhất 8 ký tự, có hoa/thường/số" required />
+        <div class="error-text" id="passError">
+          Mật khẩu cần tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường và 1 chữ số.
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="regAgree" name="regAgree" />
+        <label for="regAgree" style="margin:0;">Đồng ý điều khoản</label>
+      </div>
+      <div class="error-text" id="agreeError" style="margin-top:-10px;margin-bottom:14px;">
+        Bạn cần đồng ý điều khoản trước khi đăng ký.
+      </div>
+
+      <button type="submit" class="btn">Đăng ký</button>
+
+      <div class="success-msg" id="successMsg"></div>
+    </form>
+  </div>
+
+  <div class="explain-block" style="margin-top:30px;">
+    <h2>Giải thích logic tư duy</h2>
+    <ul>
+      <li>Sự kiện <code>submit</code> được lắng nghe trên thẻ <code>&lt;form&gt;</code>, và mình gọi <code>e.preventDefault()</code> ngay đầu để chặn hành vi tải lại trang mặc định, từ đó tự kiểm soát toàn bộ luồng validate trước khi quyết định có lưu dữ liệu hay không.</li>
+      <li>Email được kiểm tra bằng regex cơ bản dạng <code>ten@domain.ext</code>; mật khẩu dùng regex yêu cầu đồng thời có chữ hoa, chữ thường, chữ số và tối thiểu 8 ký tự.</li>
+      <li>Checkbox "Đồng ý điều khoản" bắt buộc phải được tick thì form mới hợp lệ; nếu chưa hợp lệ, các thông báo lỗi tương ứng sẽ hiện ra và dữ liệu không được lưu.</li>
+      <li>Về bảo mật dữ liệu cục bộ: <strong>LocalStorage không được mã hoá</strong> và có thể bị bất kỳ đoạn script nào chạy trên cùng origin đọc được, nên đây chỉ là demo lưu trữ phía client. Trong thực tế, mình sẽ không bao giờ lưu mật khẩu (kể cả đã hash) vào LocalStorage; mật khẩu cần được gửi qua kết nối HTTPS lên server, sau đó server hash bằng thuật toán an toàn (bcrypt/argon2) rồi mới lưu vào database — phía client tuyệt đối không xử lý hay lưu trữ mật khẩu thô.</li>
+      <li>Ở bài demo này, mình chỉ lưu họ tên và email (không lưu mật khẩu) vào LocalStorage để minh hoạ thao tác <code>localStorage.setItem()</code> với dữ liệu đã qua kiểm tra hợp lệ.</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  © 2026 Nguyễn Quốc Phong - 231A011174 - Trường Đại Học Văn Hiến
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thông tin Điểm danh</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="brand">701 - 231A011174</div>
+    <ul>
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="baitap01.html">Bài tập 1</a></li>
+      <li><a href="baitap02.html">Bài tập 2</a></li>
+      <li><a href="baitap03.html">Bài tập 3</a></li>
+      <li><a href="about.html">Trả lời Lý thuyết</a></li>
+      <li><a href="baitap18.html">Bài tập 18</a></li>
+      <li><a href="baitap19.html">Bài tập 19</a></li>
+      <li><a href="contact.html">Điểm danh</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="section-title">Thông tin Điểm danh</h2>
+
+  <div class="profile-card">
+    <img src="images/avatar.jpg" alt="Ảnh đại diện Nguyễn Quốc Phong" />
+    <div>
+      <h2>Nguyễn Quốc Phong</h2>
+      <p>Sinh viên năm 3 ngành Công nghệ thông tin - Trường Đại Học Văn Hiến</p>
+    </div>
+  </div>
+
+  <table class="info-table">
+    <tbody>
+      <tr>
+        <th>Họ và tên</th>
+        <td>Nguyễn Quốc Phong</td>
+      </tr>
+      <tr>
+        <th>MSSV</th>
+        <td>231A011174</td>
+      </tr>
+      <tr>
+        <th>Lớp</th>
+        <td>701</td>
+      </tr>
+      <tr>
+        <th>Môn học</th>
+        <td>Lập trình Web (Web Programming)</td>
+      </tr>
+      <tr>
+        <th>Giảng viên</th>
+        <td>Thầy Nguyễn Quang Tấn</td>
+      </tr>
+      <tr>
+        <th>Trường</th>
+        <td>Trường Đại Học Văn Hiến</td>
+      </tr>
+      <tr>
+        <th>GitHub</th>
+        <td><a href="https://github.com/nguyenquoc67" target="_blank" rel="noopener">github.com/nguyenquoc67</a></td>
+      </tr>
+      <tr>
+        <th>Repo bài thi</th>
+        <td><a href="https://github.com/nguyenquoc67/701-231A011174" target="_blank" rel="noopener">github.com/nguyenquoc67/701-231A011174</a></td>
+      </tr>
+      <tr>
+        <th>Link Deploy (Đề thi Kết thúc HP)</th>
+        <td><a href="https://nguyenquoc67.github.io/701-231A011174/" target="_blank" rel="noopener">https://nguyenquoc67.github.io/701-231A011174/</a></td>
+      </tr>
+      <tr>
+        <th>Thời gian nộp bài</th>
+        <td id="submitTime"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:16px; color:#7f8c8d; font-size:0.9rem;">
+    * Lưu ý: link Deploy ở trên sẽ hoạt động chính xác sau khi đã push code lên GitHub repo
+    <strong>701-231A011174</strong> và bật GitHub Pages (Settings &rarr; Pages &rarr; Branch: main &rarr; /root).
+  </p>
+</main>
+
+<footer>
+  © 2026 Nguyễn Quốc Phong - 231A011174 - Trường Đại Học Văn Hiến
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+  document.getElementById("submitTime").textContent = new Date().toLocaleString("vi-VN");
+</script>
+</body>
+</html>
